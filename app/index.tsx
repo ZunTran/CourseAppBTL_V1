@@ -1,15 +1,5 @@
-import { Text, View } from "react-native";
-
+import { Redirect } from 'expo-router';
+// Tự động chuyển hướng vào trang user khi mở app
 export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+  return <Redirect href="/user" />;
 }

@@ -28,7 +28,7 @@ export default function UserIndexPage() {
 
   return (
       <View style={{flex:1}}>
-        <Text>USER INDEX PAGE</Text>
+        <Text className="text-yellow-300 text-3xl font-bold" >USER INDEX PAGE</Text>
             {courses===null?<ActivityIndicator/>:<>
                 {courses.map(c=>(
                     <View key={c.id} style={styles.titlebox}>

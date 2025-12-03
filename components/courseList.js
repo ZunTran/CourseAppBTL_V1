@@ -3,21 +3,26 @@ import React from "react";
 import {styles} from '../theme'
 import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-
+import { router } from "expo-router";
 
 var {width,height}=Dimensions.get('window');
 
 
-export default function CourseList({title,data}){
+export default function CourseList({title,data,hideSeeAll}){
     let courseName="Course Nameeeeee"
     const navigation=useNavigation()
     return (
         <View className="mb-8 space-y-4">
             <View className="mx-4 flex-row justify-between items-center">
                 <Text className="text-white text-xl">{title}</Text>
-                <TouchableOpacity>
+                {
+                    !hideSeeAll&&(
+                          <TouchableOpacity>
                     <Text style={styles.text} className="text-lg">See All</Text>
                 </TouchableOpacity>
+                    )
+                }
+              
             </View>
 
 
@@ -31,7 +36,10 @@ export default function CourseList({title,data}){
                     return (
                         <TouchableWithoutFeedback
                         key={index}
-                        onPress={()=>navigation.navigate('Course',item)}
+                        onPress={()=>router.push({
+                            pathname: "/screens/CourseScreen",
+                            params: item
+                        })}
                         >
                             <View className="space-y-1 mr-4">
                                 <Image 

@@ -3,7 +3,7 @@ import {View, Text, Touchable, TouchableWithoutFeedback, Dimensions,Image} from 
 import Carousel from 'react-native-reanimated-carousel';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import { router } from "expo-router";
 
 var {width,height}=Dimensions.get('window');
 
@@ -20,14 +20,18 @@ try {
 
 export default function HotCourses({data})
 {   
-    const navigation=useNavigation();
+    // const navigation=useNavigation();
 
 
 
     const handleClick=(item)=>
     {
-        navigation.navigate('Course',item);
-    }
+         router.push({
+                pathname: "/screens/CourseScreen",
+                params: item
+        });
+    };
+    
     return(
         <View className="mb-8"
         >

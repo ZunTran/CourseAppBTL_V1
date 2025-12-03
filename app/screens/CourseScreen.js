@@ -5,9 +5,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronDoubleLeftIcon} from "react-native-heroicons/outline";
 import {HeartIcon} from 'react-native-heroicons/solid'
 import { styles } from "@/theme";
-import { useNavigation } from '@react-navigation/native';
+import { router } from "expo-router";
 import { LinearGradient } from 'expo-linear-gradient';
-import Author from "@/components/Author";
+import Author from "@/components/author";
+import CourseList from "@/components/courseList";
 
 var {width,height}=Dimensions.get('window');
 const ios=Platform.OS=='ios';
@@ -16,8 +17,8 @@ const topMargin=ios?'': 'mt-3';
  export default function CourseScreen(){
     const {params:item}=useRoute();
     const [isFavourite,toggleFavourite]=useState(false);
-    const navigation=useNavigation();
     const [author,setAuthor]=useState([1]);
+    const [similarCourse,setSimilarCourse]=useState([1,2,3,4]);    
     let courseName="Course Nameeeeee"
     useEffect(()=>{
         //gọi API course details
@@ -30,7 +31,7 @@ const topMargin=ios?'': 'mt-3';
             {/* 1 Button quay lại & TT Khóa học + 1 cái nút Drop ndung mô tả KH xuống */}
     <View className="w-full">
         <SafeAreaView className={"absolute z-20 w-full flex-row justify-between items-center px-4 "+ topMargin} >
-            <TouchableOpacity onPress={()=> navigation.goBack()} style={styles.background} className="rounded-xl" >
+            <TouchableOpacity onPress={()=> router.back()} style={styles.background} className="rounded-xl" >
                 <ChevronDoubleLeftIcon size="28" strokeWidth={2.5} color="white"  />
             </TouchableOpacity>
             <TouchableOpacity onPress={()=>toggleFavourite(!isFavourite)}>
@@ -83,6 +84,9 @@ const topMargin=ios?'': 'mt-3';
 
             {/* Author */}
             <Author author={author} />
+
+            {/* Các khóa học cùng chủ đề  */}
+            <CourseList title="Similar Course" hideSeeAll={true} data={similarCourse} />
     </View>
         </ScrollView>
     )

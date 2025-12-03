@@ -21,6 +21,7 @@ export default function UserIndexPage() {
             setLoading(false);
       }
         }
+
         loadCourses();
 
 
@@ -64,5 +65,6 @@ const styles = StyleSheet.create({
   title:{
     fontSize:15,
     fontWeight:'bold',
+    color:'#0d0060ff',
   }
 });

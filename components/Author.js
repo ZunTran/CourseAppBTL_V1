@@ -1,6 +1,7 @@
 import {View,Text, TouchableOpacity,Image} from 'react-native'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
+import { router } from "expo-router";
 
 export default function Author({author}){
     let personName='XXX';
@@ -18,6 +19,10 @@ export default function Author({author}){
                         <TouchableOpacity
                         key={index}
                         className="mr-4 items-center"
+                        onPress={()=>router.push({
+                                                    pathname: "/screens/PersonScreen",
+                                                    params: person
+                                                })}
                         >
                             <View
                             className="overflow-hidden rounded-full h-20 w-20 items-center border border-neutral-500"

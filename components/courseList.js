@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback,Image, Dimension
 import React from "react";
 import {styles} from '../theme'
 import { ScrollView } from "react-native-gesture-handler";
-import { useNavigation } from "@react-navigation/native";
 import { router } from "expo-router";
 
 var {width,height}=Dimensions.get('window');
@@ -10,7 +9,8 @@ var {width,height}=Dimensions.get('window');
 
 export default function CourseList({title,data,hideSeeAll}){
     let courseName="Course Nameeeeee"
-    const navigation=useNavigation()
+    let coursePrice="$course price"
+
     return (
         <View className="mb-8 space-y-4">
             <View className="mx-4 flex-row justify-between items-center">
@@ -51,6 +51,9 @@ export default function CourseList({title,data,hideSeeAll}){
                                 {
                                     courseName.length>14? courseName.slice(0,14)+'...': courseName
                                 }
+                                </Text>
+                                <Text className="text-neutral-300 ml-1">
+                                {coursePrice}
                                 </Text>
                             </View>
                             

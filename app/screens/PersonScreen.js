@@ -7,6 +7,7 @@ import { StarIcon} from 'react-native-heroicons/solid'
 import { styles } from "@/theme";
 import { useState } from "react";
 import CourseList from "@/components/courseList";
+import Loading from "@/components/loading";
 
 var {width,height}= Dimensions.get('window')
 const ios=Platform.OS=='ios'
@@ -14,6 +15,7 @@ const verticalMargin=ios?'':'my-3'
 export default function PersonScreen(){
     const [isFavourite, toggleFavourite]=useState(false);
     const [personCourses,setPersonCourses]=useState([1,2,3]);
+    const [loading, setloading]=useState(false);  
     return (
         <ScrollView style={styles.background}>
             {/* Back button */}
@@ -26,8 +28,14 @@ export default function PersonScreen(){
             </TouchableOpacity>
             </SafeAreaView >
 
-            {/* Author detais */}
-            <View className="justify-center items-center"
+        {
+            loading?(
+                <Loading />
+            ):(
+
+                <View>
+                    {/* Author detais */}
+                <View className="justify-center items-center"
                  style={{
                     shadowColor:'gray',
                     shadowRadius:40,
@@ -57,11 +65,17 @@ export default function PersonScreen(){
 
 
                 {/* DSach các Khóa học của Author */}
-            </View>
-            <View className="my-6 mx-4 space-y-2 items-start" >
+                </View>
+                <View className="my-6 mx-4 space-y-2 items-start" >
                 <Text className="text-white text-lg font-bold ">Các Khóa học của tác giả</Text>
                 <CourseList  hideSeeAll={true} data={personCourses} />
+                </View>
             </View>
+            )
+        }
+            
+           
+            
         </ScrollView>
     )
 }

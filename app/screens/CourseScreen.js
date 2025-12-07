@@ -9,17 +9,24 @@ import { router } from "expo-router";
 import { LinearGradient } from 'expo-linear-gradient';
 import Author from "@/components/author";
 import CourseList from "@/components/courseList";
+import Loading from "@/components/loading";
+// ????????? import { useLocalSearchParams } from "expo-router";
+
 
 var {width,height}=Dimensions.get('window');
 const ios=Platform.OS=='ios';
 const topMargin=ios?'': 'mt-3';
 
  export default function CourseScreen(){
+    //????????/ const item = useLocalSearchParams();
     const {params:item}=useRoute();
     const [isFavourite,toggleFavourite]=useState(false);
     const [author,setAuthor]=useState([1]);
-    const [similarCourse,setSimilarCourse]=useState([1,2,3,4]);    
+    const [similarCourse,setSimilarCourse]=useState([1,2,3,4]);
+    const [loading, setloading]=useState(false);  
+        
     let courseName="Course Nameeeeee"
+    let coursePrice="$course price"
     useEffect(()=>{
         //gọi API course details
     },[item])
@@ -28,7 +35,7 @@ const topMargin=ios?'': 'mt-3';
         contentContainerStyle={{paddingBottom:20}}
         className="flex-1 bg-neutral-900"
         >
-            {/* 1 Button quay lại & TT Khóa học + 1 cái nút Drop ndung mô tả KH xuống */}
+        {/* 1 Button quay lại & TT Khóa học + 1 cái nút Drop ndung mô tả KH xuống */}
     <View className="w-full">
         <SafeAreaView className={"absolute z-20 w-full flex-row justify-between items-center px-4 "+ topMargin} >
             <TouchableOpacity onPress={()=> router.back()} style={styles.background} className="rounded-xl" >
@@ -38,33 +45,42 @@ const topMargin=ios?'': 'mt-3';
                 <HeartIcon size="30" color={isFavourite?"red":"white"} />
             </TouchableOpacity>
         </SafeAreaView>
-        <View>
-            <Image source={require('../../assets/images/fullstackweb.png')}
+        {
+            loading?(
+                <Loading />
+            ):(
+            <View>
+                <Image source={require('../../assets/images/fullstackweb.png')}
                 style={{width,height:height*0.4}}
             />
-        {/* thư viện để tạo hiệu ứng chuyển màu (gradient) React Native (Expo)trên->dưới,trái→phải,chéo,… */}
-            <LinearGradient 
+            {/* thư viện để tạo hiệu ứng chuyển màu (gradient) React Native (Expo)trên->dưới,trái→phải,chéo,… */}
+                <LinearGradient 
                 colors={['trasparent', 'rgbs(23,23,23,0.8)','rgbs(23,23,23,1)']}
                 style={{width,height:height*0.4}}
                 start={{x:0.5,y:0}}
                 end={{x:0.5,y:1}}
                 className="absolute bottom-0"
-            />
-        </View>
+                />
+            </View>
+            )
+        }
+     
         
         {/* Course Details */}
          <View>
             <Text className="text-white text-center text-3xl font-bold tracking-wider">
-            {
-                courseName
-            }
+            {courseName}{"\n"}{coursePrice}
             </Text>
-            {/* Tgian Update & Thời lượng Khóa học */}
+        {/* Icon add vào giỏ hàng */}
+
+
+
+        {/* Tgian Update & Thời lượng Khóa học */}
             <Text className="text-neutral-400 font-semibold text-base text-center">
                 2025 ◊ 100 min
             </Text>
 
-            {/* genres */}
+        {/* genres */}
             <View className="flex-row justify-center mx-4 space-x-2">
                 <Text className="text-neutral-400 font-semibold text-base text-center">
                 Python° 
@@ -76,16 +92,16 @@ const topMargin=ios?'': 'mt-3';
                 React° 
                 </Text>
             </View>
-            {/* Mô Tả  */}
+        {/* Mô Tả  */}
             <Text className="text-neutral-400 mx-4 tracking-wide">
                 Full Stack Course how to make a course app. Front-end and Backend.
             </Text>
         </View>
 
-            {/* Author */}
+        {/* Author */}
             <Author author={author} />
 
-            {/* Các khóa học cùng chủ đề  */}
+        {/* Các khóa học cùng chủ đề  */}
             <CourseList title="Similar Course" hideSeeAll={true} data={similarCourse} />
     </View>
         </ScrollView>
